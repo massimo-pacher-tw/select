@@ -63,16 +63,17 @@
         bottom: .2em;
         height: 1em;
         width: 1em;
-        margin: auto; }
+        margin: auto;
+        font-size: 0.8em; }
       .select.select-theme-default .select-options .select-option:hover, .select.select-theme-default .select-options .select-option.select-option-highlight {
         background: #63a2f1;
         color: #fff; }
         .select.select-theme-default .select-options .select-option:hover.select-option-selected:before, .select.select-theme-default .select-options .select-option.select-option-highlight.select-option-selected:before {
           content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='-0.5 0 20 15'><rect fill='#fff' stroke='none' transform='rotate(45 4.0033 8.87436)' height='5' width='6.32304' y='6.37436' x='0.84178'></rect><rect fill='#fff' stroke='none' transform='rotate(45 11.1776 7.7066)' width='5' height='16.79756' y='-0.69218' x='8.67764'></rect></svg>"); }
       .select.select-theme-default .select-options .select-option:first-child {
-        border-radius: 0.25em 0.25em 0 0; }
+        border-radius: .25em .25em 0 0; }
       .select.select-theme-default .select-options .select-option:last-child {
-        border-radius: 0 0 0.25em 0.25em; }
+        border-radius: 0 0 .25em .25em; }
 
 .select-target.select-theme-default {
   display: inline-block;
@@ -98,7 +99,8 @@
   white-space: nowrap;
   max-width: 100%;
   overflow: hidden;
-  text-overflow: ellipsis; }
+  text-overflow: ellipsis;
+  font-weight: normal; }
   .select-target.select-theme-default:hover {
     border-color: #aaa;
     color: #000; }
@@ -108,23 +110,23 @@
   .select-target.select-theme-default b {
     position: absolute;
     right: 1em;
-    top: 0;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
     bottom: 0;
     margin: auto;
     height: 1.25rem;
-    width: 2em; }
-    .select-target.select-theme-default b:before, .select-target.select-theme-default b:after {
-      content: "";
-      display: block;
+    width: 2em;
+    font-family: 'Glyphicons Halflings';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 300; }
+    .select-target.select-theme-default b:before {
+      content: "\e114";
+      color: #00b9ff;
+      border: 0;
+      right: 10px;
       position: absolute;
       margin: auto;
-      right: 0;
       height: 0;
-      width: 0;
-      border: .263em solid transparent; }
-    .select-target.select-theme-default b:before {
-      top: 0;
-      border-bottom-color: inherit; }
-    .select-target.select-theme-default b:after {
-      bottom: 0;
-      border-top-color: inherit; }
+      width: 0; }

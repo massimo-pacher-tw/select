@@ -16,11 +16,11 @@
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-var _get = function get(_x3, _x4, _x5) { var _again = true; _function: while (_again) { var object = _x3, property = _x4, receiver = _x5; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x3 = parent; _x4 = property; _x5 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+var _get = function get(_x3, _x4, _x5) { var _again = true; _function: while (_again) { var object = _x3, property = _x4, receiver = _x5; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x3 = parent; _x4 = property; _x5 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _Tether$Utils = Tether.Utils;
 var extend = _Tether$Utils.extend;
@@ -145,6 +145,8 @@ document.addEventListener('keydown', function (e) {
 });
 
 var Select = (function (_Evented) {
+  _inherits(Select, _Evented);
+
   function Select(options) {
     _classCallCheck(this, Select);
 
@@ -173,8 +175,6 @@ var Select = (function (_Evented) {
 
     this.value = this.select.value;
   }
-
-  _inherits(Select, _Evented);
 
   _createClass(Select, [{
     key: 'useNative',
@@ -264,7 +264,7 @@ var Select = (function (_Evented) {
   }, {
     key: 'open',
     value: function open() {
-      var _this3 = this;
+      var _this4 = this;
 
       addClass(this.target, 'select-open');
 
@@ -272,9 +272,9 @@ var Select = (function (_Evented) {
         this.select.style.display = 'block';
 
         setTimeout(function () {
-          var event = document.createEvent('MouseEvents');
-          event.initEvent('mousedown', true, true);
-          _this3.select.dispatchEvent(event);
+          var event = document.createEvent("MouseEvents");
+          event.initEvent("mousedown", true, true);
+          _this4.select.dispatchEvent(event);
         });
 
         return;
@@ -283,7 +283,7 @@ var Select = (function (_Evented) {
       addClass(this.drop, 'select-open');
 
       setTimeout(function () {
-        _this3.tether.enable();
+        _this4.tether.enable();
       });
 
       var selectedOption = this.drop.querySelector('.select-option-selected');
@@ -296,13 +296,13 @@ var Select = (function (_Evented) {
       this.scrollDropContentToOption(selectedOption);
 
       var positionSelectStyle = function positionSelectStyle() {
-        if (hasClass(_this3.drop, 'tether-abutted-left') || hasClass(_this3.drop, 'tether-abutted-bottom')) {
-          var dropBounds = getBounds(_this3.drop);
+        if (hasClass(_this4.drop, 'tether-abutted-left') || hasClass(_this4.drop, 'tether-abutted-bottom')) {
+          var dropBounds = getBounds(_this4.drop);
           var optionBounds = getBounds(selectedOption);
 
           var offset = dropBounds.top - (optionBounds.top + optionBounds.height);
 
-          _this3.drop.style.top = '' + ((parseFloat(_this3.drop.style.top) || 0) + offset) + 'px';
+          _this4.drop.style.top = (parseFloat(_this4.drop.style.top) || 0) + offset + 'px';
         }
       };
 
@@ -316,6 +316,9 @@ var Select = (function (_Evented) {
           positionSelectStyle();
         });
       }
+
+      var width = _this3.target.offsetWidth;
+      _this3.drop.querySelector('.select-content').style.minWidth = width + 'px';
 
       this.trigger('open');
     }
@@ -352,29 +355,29 @@ var Select = (function (_Evented) {
   }, {
     key: 'bindClick',
     value: function bindClick() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.target.addEventListener(clickEvent, function (e) {
         e.preventDefault();
-        _this4.toggle();
+        _this5.toggle();
       });
 
       document.addEventListener(clickEvent, function (event) {
-        if (!_this4.isOpen()) {
+        if (!_this5.isOpen()) {
           return;
         }
 
         // Clicking inside dropdown
-        if (event.target === _this4.drop || _this4.drop.contains(event.target)) {
+        if (event.target === _this5.drop || _this5.drop.contains(event.target)) {
           return;
         }
 
         // Clicking target
-        if (event.target === _this4.target || _this4.target.contains(event.target)) {
+        if (event.target === _this5.target || _this5.target.contains(event.target)) {
           return;
         }
 
-        _this4.close();
+        _this5.close();
       });
     }
   }, {
@@ -572,25 +575,25 @@ var Select = (function (_Evented) {
   }, {
     key: 'pickOption',
     value: function pickOption(option) {
-      var _this5 = this;
+      var _this6 = this;
 
-      var close = arguments[1] === undefined ? true : arguments[1];
+      var close = arguments.length <= 1 || arguments[1] === undefined ? true : arguments[1];
 
       this.value = this.select.value = option.getAttribute('data-value');
       this.triggerChange();
 
       if (close) {
         setTimeout(function () {
-          _this5.close();
-          _this5.target.focus();
+          _this6.close();
+          _this6.target.focus();
         });
       }
     }
   }, {
     key: 'triggerChange',
     value: function triggerChange() {
-      var event = document.createEvent('HTMLEvents');
-      event.initEvent('change', true, false);
+      var event = document.createEvent("HTMLEvents");
+      event.initEvent("change", true, false);
       this.select.dispatchEvent(event);
 
       this.trigger('change', { value: this.select.value });
@@ -617,7 +620,7 @@ Select.defaults = {
 };
 
 Select.init = function () {
-  var options = arguments[0] === undefined ? {} : arguments[0];
+  var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {

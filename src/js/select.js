@@ -277,6 +277,9 @@ class Select extends Evented {
       });
     }
 
+    var width = _this3.target.offsetWidth;
+    _this3.drop.querySelector('.select-content').style.minWidth = width +'px';
+
     this.trigger('open');
   }
 
