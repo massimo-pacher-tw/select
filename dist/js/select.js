@@ -264,7 +264,7 @@ var Select = (function (_Evented) {
   }, {
     key: 'open',
     value: function open() {
-      var _this4 = this;
+      var _this3 = this;
 
       addClass(this.target, 'select-open');
 
@@ -274,7 +274,7 @@ var Select = (function (_Evented) {
         setTimeout(function () {
           var event = document.createEvent("MouseEvents");
           event.initEvent("mousedown", true, true);
-          _this4.select.dispatchEvent(event);
+          _this3.select.dispatchEvent(event);
         });
 
         return;
@@ -283,7 +283,7 @@ var Select = (function (_Evented) {
       addClass(this.drop, 'select-open');
 
       setTimeout(function () {
-        _this4.tether.enable();
+        _this3.tether.enable();
       });
 
       var selectedOption = this.drop.querySelector('.select-option-selected');
@@ -296,13 +296,13 @@ var Select = (function (_Evented) {
       this.scrollDropContentToOption(selectedOption);
 
       var positionSelectStyle = function positionSelectStyle() {
-        if (hasClass(_this4.drop, 'tether-abutted-left') || hasClass(_this4.drop, 'tether-abutted-bottom')) {
-          var dropBounds = getBounds(_this4.drop);
+        if (hasClass(_this3.drop, 'tether-abutted-left') || hasClass(_this3.drop, 'tether-abutted-bottom')) {
+          var dropBounds = getBounds(_this3.drop);
           var optionBounds = getBounds(selectedOption);
 
           var offset = dropBounds.top - (optionBounds.top + optionBounds.height);
 
-          _this4.drop.style.top = (parseFloat(_this4.drop.style.top) || 0) + offset + 'px';
+          _this3.drop.style.top = (parseFloat(_this3.drop.style.top) || 0) + offset + 'px';
         }
       };
 
@@ -317,8 +317,8 @@ var Select = (function (_Evented) {
         });
       }
 
-      var width = _this3.target.offsetWidth;
-      _this3.drop.querySelector('.select-content').style.minWidth = width + 'px';
+      var width = this.target.offsetWidth;
+      this.drop.querySelector('.select-content').style.minWidth = width + 'px';
 
       this.trigger('open');
     }
@@ -355,29 +355,29 @@ var Select = (function (_Evented) {
   }, {
     key: 'bindClick',
     value: function bindClick() {
-      var _this5 = this;
+      var _this4 = this;
 
       this.target.addEventListener(clickEvent, function (e) {
         e.preventDefault();
-        _this5.toggle();
+        _this4.toggle();
       });
 
       document.addEventListener(clickEvent, function (event) {
-        if (!_this5.isOpen()) {
+        if (!_this4.isOpen()) {
           return;
         }
 
         // Clicking inside dropdown
-        if (event.target === _this5.drop || _this5.drop.contains(event.target)) {
+        if (event.target === _this4.drop || _this4.drop.contains(event.target)) {
           return;
         }
 
         // Clicking target
-        if (event.target === _this5.target || _this5.target.contains(event.target)) {
+        if (event.target === _this4.target || _this4.target.contains(event.target)) {
           return;
         }
 
-        _this5.close();
+        _this4.close();
       });
     }
   }, {
@@ -575,7 +575,7 @@ var Select = (function (_Evented) {
   }, {
     key: 'pickOption',
     value: function pickOption(option) {
-      var _this6 = this;
+      var _this5 = this;
 
       var close = arguments.length <= 1 || arguments[1] === undefined ? true : arguments[1];
 
@@ -584,8 +584,8 @@ var Select = (function (_Evented) {
 
       if (close) {
         setTimeout(function () {
-          _this6.close();
-          _this6.target.focus();
+          _this5.close();
+          _this5.target.focus();
         });
       }
     }
